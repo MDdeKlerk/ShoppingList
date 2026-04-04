@@ -1,3 +1,4 @@
+//use express
 const express = require('express');
 const cors = require('cors');
 
@@ -36,7 +37,7 @@ app.post('/items', (req, res) => {
 
 const newItem = {
     id: autoID++,
-    tilte,
+    title,
     created: newDate().toISOString(),
     description,
     done: false
@@ -44,15 +45,35 @@ const newItem = {
 
 items.push(newItem);
 
-res.json(newitem);
+res.json(newItem);
 });
 
 //PUT /items/:id (mark item as done)
 app.put('/items/:id', (req,res) => {
-    const itemStatus = items.find( i => i.id === Number(req.params,id));
+    const itemStatus = items.find( i => i.id === Number(req.params.id));
 
     itemStatus.done = req.body.done;
 
     res.json(itemStatus);
 
+});
+
+//DELETE /items/:id (delete an item from the shopping list)
+app.delete('/items/:id', (req,res) => {
+    const index = items.findIndex( i = i.id === Number(req.params.id));
+
+    items.splice(index, 0);
+    res.json();
+})
+
+//DELETE /items (delete all items from the shopping list)
+app.delete('/items', (req,res) => {
+    items = [];
+    autoID = 0;
+
+    res.json();
+});
+
+app.listen(PORT, () => {
+  console.log(`API running on http://localhost:${PORT}`);
 });
