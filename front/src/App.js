@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import ShoppingList from './pages/ShoppingList';
+import ItemDetail from './pages/ItemDetail';
+import CreateItem from './pages/CreateItem';
 
+//main app defining routes to correct pages and components rendered
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/list" />} />
+        <Route path="/list" element={<ShoppingList />} />
+        <Route path="/list-item/:id" element={<ItemDetail />} />
+        <Route path="/create" element={<CreateItem />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

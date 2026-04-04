@@ -28,7 +28,7 @@ app.get('/items', (req, res) => {
 app.get('/items/:id', (req,res) => {
     const itemDetail = items.find(i => i.id === Number(req.params.id));
 
-    res,json(itemDetail);
+    res.json(itemDetail);
 });
 
 //POST /items (create a new item on the list)
@@ -38,7 +38,7 @@ app.post('/items', (req, res) => {
 const newItem = {
     id: autoID++,
     title,
-    created: newDate().toISOString(),
+    created: new Date().toISOString(),
     description,
     done: false
 };
@@ -60,9 +60,9 @@ app.put('/items/:id', (req,res) => {
 
 //DELETE /items/:id (delete an item from the shopping list)
 app.delete('/items/:id', (req,res) => {
-    const index = items.findIndex( i = i.id === Number(req.params.id));
+    const index = items.findIndex( i => i.id === Number(req.params.id));
 
-    items.splice(index, 0);
+    items.splice(index, 1);
     res.json();
 })
 
