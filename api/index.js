@@ -10,7 +10,7 @@ app.use(express.json());
 
 //initialise variables
 let items = [];
-let autoID = 1;
+let autoID = 0;
 
 //GET /items (display shopping list)
 app.get('/items', (req, res) => {
@@ -19,13 +19,40 @@ app.get('/items', (req, res) => {
         title,
         done
     }));
+
     res.json(shoppingList);
 });
 
 //GET /items/:id (view an item including details)
 app.get('/items/:id', (req,res) => {
     const itemDetail = items.find(i => i.id === Number(req.params.id));
+
     res,json(itemDetail);
 });
 
-//POST /items (Create a new item on the list)
+//POST /items (create a new item on the list)
+app.post('/items', (req, res) => {
+    const {title, description} = req.body;
+
+const newItem = {
+    id: autoID++,
+    tilte,
+    created: newDate().toISOString(),
+    description,
+    done: false
+};
+
+items.push(newItem);
+
+res.json(newitem);
+});
+
+//PUT /items/:id (mark item as done)
+app.put('/items/:id', (req,res) => {
+    const itemStatus = items.find( i => i.id === Number(req.params,id));
+
+    itemStatus.done = req.body.done;
+
+    res.json(itemStatus);
+
+});
