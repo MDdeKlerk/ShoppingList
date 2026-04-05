@@ -36,7 +36,7 @@ export default function ItemDetail() {
 //function to mark item as done
   const markDone = async () => {
     try {
-        await fetch(`${API}/items/${id}`, {
+      const res = await fetch(`${API}/items/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ done: true })
@@ -56,7 +56,7 @@ export default function ItemDetail() {
 //function to delete item from the shopping list
   const deleteItem = async () => {
     try {
-      await fetch(`${API}/items/${id}`, {
+     const res = await fetch(`${API}/items/${id}`, {
       method: 'DELETE'
     });
 
