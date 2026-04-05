@@ -31,10 +31,10 @@ export default function CreateItem() {
     <div>
       <h1>Create Item</h1>
 
-//form that takes user input and calls the handleSubmit function when the submit button is cli
+
       <form onSubmit={handleSubmit}>
 
-//input box for the item title        
+       
         <input
           placeholder="Title"
           value={title}
@@ -43,7 +43,7 @@ export default function CreateItem() {
 
         <br />
 
-//text box for the description of the item from the user
+
         <textarea
           placeholder="Description"
           value={description}
@@ -52,7 +52,7 @@ export default function CreateItem() {
 
         <br />
 
-//submit button which calls the handleSubmit function when clicked
+
         <button type="submit">Add</button>
       </form>
     </div>
