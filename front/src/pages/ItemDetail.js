@@ -44,22 +44,26 @@ export default function ItemDetail() {
     navigate('/list');
   };
 
+
+//if statement added to fix error where react renders before data arrives 
+if (!item) return <p>Loading...Please Wait...</p>;
+
 return (
     <div>
 
-//displays the item description, date created and the status 
+ 
       <h2>{item.title}</h2>
       <p>Description: {item.description}</p>
       <p>Created: {new Date(item.created).toLocaleString()}</p>
       <p>Status: {item.done ? 'Done' : 'Not Done'}</p>
 
-//button that calls the markDone function to change the item status to done when clicked
+
       <button onClick={markDone}>Check off Item</button>
 
-//button that calls the deleteItem function when clicked to delete the displayed item from the shopping list      
+      
       <button onClick={deleteItem}>Delete Item</button>
 
-//button that navigates back to the ShoppingList page
+
       <button onClick={() => navigate('/list')}>View Shopping List</button>
     </div>
   );
