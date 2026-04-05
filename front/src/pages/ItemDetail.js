@@ -17,13 +17,13 @@ export default function ItemDetail() {
     showItem(data);
   };
 
-  //runs function to show item detail when page loads
+//runs function to show item detail when page loads
   useEffect(() => {
     getItem();
   }, [id]);
 
 
-  //function to mark item as done
+//function to mark item as done
   const markDone = async () => {
     await fetch(`${API}/items/${id}`, {
       method: 'PUT',
@@ -34,15 +34,35 @@ export default function ItemDetail() {
     getItem();
   };
 
-  //function to delete item from the shopping list
+//function to delete item from the shopping list
   const deleteItem = async () => {
     await fetch(`${API}/items/${id}`, {
       method: 'DELETE'
     });
 
-    //returns to shopping list after deleting item
+//returns to shopping list after deleting item
     navigate('/list');
   };
+
+return (
+    <div>
+
+//displays the item description, date created and the status 
+      <h2>{item.title}</h2>
+      <p>Description: {item.description}</p>
+      <p>Created: {new Date(item.created).toLocaleString()}</p>
+      <p>Status: {item.done ? 'Done' : 'Not Done'}</p>
+
+//button that calls the markDone function to change the item status to done when clicked
+      <button onClick={markDone}>Check off Item</button>
+
+//button that calls the deleteItem function when clicked to delete the displayed item from the shopping list      
+      <button onClick={deleteItem}>Delete Item</button>
+
+//button that navigates back to the ShoppingList page
+      <button onClick={() => navigate('/list')}>View Shopping List</button>
+    </div>
+  );
 
 
 }
