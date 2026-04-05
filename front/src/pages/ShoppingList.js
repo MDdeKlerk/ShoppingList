@@ -18,11 +18,10 @@ export default function ShoppingList() {
       const listData = await res.json();
       showList(listData);
       
-    } catch (error) {
-
-      console.error(err);
-      alert('Error loading shopping list!'); 
-    }
+      } catch (err) {
+        console.error(err);
+        alert('Error loading shopping list!'); 
+      }
     
   };
 
@@ -35,7 +34,7 @@ export default function ShoppingList() {
   const changeDone = async (id, done) => {
 
     try {
-      await fetch(`${API}/items/${id}`, {
+      const res = await fetch(`${API}/items/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ done: !done })
@@ -45,10 +44,10 @@ export default function ShoppingList() {
 
     getItems();
       
-    } catch (error) {
-      console.error(err);
-      alert('Error marking item!'); 
-    }
+      } catch (err) {
+        console.error(err);
+        alert('Error marking item!'); 
+      }
     
   };
 
@@ -56,7 +55,7 @@ export default function ShoppingList() {
   const deleteItem = async (id) => {
 
     try {
-      await fetch(`${API}/items/${id}`, {
+      const res = await fetch(`${API}/items/${id}`, {
       method: 'DELETE'
     });
 
@@ -64,17 +63,17 @@ export default function ShoppingList() {
 
     getItems();
       
-    } catch (error) {
-      console.error(err);
-      alert('Error deleting item!');  
-    }
+     } catch (err) {
+        console.error(err);
+        alert('Error deleting item!');  
+     }
     
   };
 
   //function to clear the list by deleting all  items
   const clearList = async () => {
     try {
-      await fetch(`${API}/items`, { 
+      const res = await fetch(`${API}/items`, { 
       method: 'DELETE'
       });
 
@@ -82,10 +81,10 @@ export default function ShoppingList() {
       
         getItems();
 
-    } catch (error) {
-       console.error(err);
-       alert('Error clearing shopping list');   
-    }
+      } catch (err) {
+         console.error(err);
+         alert('Error clearing shopping list');   
+      }
   };
 
 //UI

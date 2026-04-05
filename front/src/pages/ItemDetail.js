@@ -20,9 +20,9 @@ export default function ItemDetail() {
       const data = await res.json();
       showItem(data);
 
-    } catch (error) {
-      console.error(err);
-      getItem(null);
+    } catch (err) {
+       console.error(err);
+       getItem(null);
     }
     
   };
@@ -46,10 +46,10 @@ export default function ItemDetail() {
 
       getItem();
       
-    } catch (error) {
-      console.error(err);
-      alert('Error marking item as done!');     
-    }
+      } catch (err) {
+        console.error(err);
+        alert('Error marking item as done!');     
+      }
     
   };
 
@@ -62,10 +62,10 @@ export default function ItemDetail() {
 
     if (!res.ok) throw new Error('Failed to delete');
       
-    } catch (error) {
-      console.error(err);
-      alert('Error deleting item');
-    }
+      } catch (err) {
+        console.error(err);
+        alert('Error deleting item');
+      }
     
 //returns to shopping list after deleting item
     navigate('/list');
