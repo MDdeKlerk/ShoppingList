@@ -9,9 +9,21 @@ export default function ShoppingList() {
   const [items, showList] = useState([]);
 
    const getItems = async () => {
-    const res = await fetch(`${API}/items`);
-    const listData = await res.json();
-    showList(listData);
+
+    try {
+      const res = await fetch(`${API}/items`);
+
+      if (!res.ok) throw new Error('Failed to fetch shopping list');
+
+      const listData = await res.json();
+      showList(listData);
+      
+    } catch (error) {
+
+      console.error(err);
+      alert('Error loading shopping list!'); 
+    }
+    
   };
 
   //runs function to get items when page laods
@@ -21,29 +33,59 @@ export default function ShoppingList() {
 
   //function to change done status once checkbox is clicked 
   const changeDone = async (id, done) => {
-    await fetch(`${API}/items/${id}`, {
+
+    try {
+      await fetch(`${API}/items/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ done: !done })
     });
 
+      if (!res.ok) throw new Error('Failed to mark item');
+
     getItems();
+      
+    } catch (error) {
+      console.error(err);
+      alert('Error marking item!'); 
+    }
+    
   };
 
   //function to delete a single item when button is clicked
   const deleteItem = async (id) => {
-    await fetch(`${API}/items/${id}`, {
+
+    try {
+      await fetch(`${API}/items/${id}`, {
       method: 'DELETE'
     });
 
+    if (!res.ok) throw new Error('Failed to delete item');
+
     getItems();
+      
+    } catch (error) {
+      console.error(err);
+      alert('Error deleting item!');  
+    }
+    
   };
 
   //function to clear the list by deleting all  items
   const clearList = async () => {
-    await fetch(`${API}/items`, { method: 'DELETE' });
+    try {
+      await fetch(`${API}/items`, { 
+      method: 'DELETE'
+      });
 
-    getItems();
+       if (!res.ok) throw new Error('Failed to clear shopping list');
+      
+        getItems();
+
+    } catch (error) {
+       console.error(err);
+       alert('Error clearing shopping list');   
+    }
   };
 
 //UI

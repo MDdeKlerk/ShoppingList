@@ -17,14 +17,23 @@ export default function CreateItem() {
     e.preventDefault();
 
 //sends the data that user entered to the backend
-    await fetch(`${API}/items`, {
+    try {
+      const res = await fetch(`${API}/items`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title, description })
     });
 
+     if (!res.ok) throw new Error('Failed to create');
+
 //returns user back to the ShoppingList page after adding an item
-    navigate('/list');
+       navigate('/list');
+    } catch (error) {
+       console.error(err);
+    alert('Error creating item');
+      
+    }
+
   };
 
   return (

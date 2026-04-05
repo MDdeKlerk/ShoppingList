@@ -12,9 +12,19 @@ export default function ItemDetail() {
   const [item, showItem] = useState(null);
 
   const getItem = async () => {
-    const res = await fetch(`${API}/items/${id}`);
-    const data = await res.json();
-    showItem(data);
+  try {
+      const res = await fetch(`${API}/items/${id}`);
+
+      if (!res.ok) throw new Error('Item not found');
+
+      const data = await res.json();
+      showItem(data);
+
+    } catch (error) {
+      console.error(err);
+      getItem(null);
+    }
+    
   };
 
 //runs function to show item detail when page loads
@@ -25,25 +35,41 @@ export default function ItemDetail() {
 
 //function to mark item as done
   const markDone = async () => {
-    await fetch(`${API}/items/${id}`, {
+    try {
+        await fetch(`${API}/items/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ done: true })
-    });
+      });
 
-    getItem();
+    if (!res.ok) throw new Error('Failed to update');
+
+      getItem();
+      
+    } catch (error) {
+      console.error(err);
+      alert('Error marking item as done!');     
+    }
+    
   };
 
 //function to delete item from the shopping list
   const deleteItem = async () => {
-    await fetch(`${API}/items/${id}`, {
+    try {
+      await fetch(`${API}/items/${id}`, {
       method: 'DELETE'
     });
 
+    if (!res.ok) throw new Error('Failed to delete');
+      
+    } catch (error) {
+      console.error(err);
+      alert('Error deleting item');
+    }
+    
 //returns to shopping list after deleting item
     navigate('/list');
   };
-
 
 //if statement added to fix error where react renders before data arrives 
 if (!item) return <p>Loading...Please Wait...</p>;
