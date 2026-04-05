@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+//port on which backend runs
 const API = 'http://localhost:5000';
 
 //get items from backend
@@ -18,7 +19,7 @@ export default function ShoppingList() {
     getItems();
   }, []);
 
-  //function to change done status once checkbox is clicked and cross out item
+  //function to change done status once checkbox is clicked 
   const changeDone = async (id, done) => {
     await fetch(`${API}/items/${id}`, {
       method: 'PUT',
