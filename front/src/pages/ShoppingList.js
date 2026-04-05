@@ -51,42 +51,42 @@ return (
     <div>
       <h1>Shopping List</h1>
 
-//button that links to the CreateItem page where an item can be added to the list
+
       <Link to="/create">
         <button>Add Item</button>
       </Link>
 
-//button that calls the clearList functions to delete all items from the shopping list by clearing the array of items
+
       <button onClick={clearList}>Clear List</button>
 
       <hr />
 
-//displaying the empty list message if no items are on the list
+
       {items.length === 0 ? (
         <p>There are no items on your shopping list.</p>
       ) 
 
-//for each element on the array show the below     
+    
       : (
         items.map(item => (
           <div key={item.id}>
 
-//displaying the checkbox and changing the done status with the changeDone function if it is checked or unchecked      
+
             <input
               type="checkbox"
               checked={item.done}
               onChange={() => changeDone(item.id, item.done)}
             />
 
-//displayin the item title
+
             {item.title}
 
-//button to view the item details which links to the ItemDetail page 
+
             <Link to={`/list-item/${item.id}`}>
               <button>View</button>
             </Link>
 
-//button calling the deleteItem function to delete the respective element 
+
             <button onClick={() => deleteItem(item.id)}>
               Delete
             </button>
