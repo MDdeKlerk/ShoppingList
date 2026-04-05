@@ -26,4 +26,35 @@ export default function CreateItem() {
 //returns user back to the ShoppingList page after adding an item
     navigate('/list');
   };
+
+  return (
+    <div>
+      <h1>Create Item</h1>
+
+//form that takes user input and calls the handleSubmit function when the submit button is cli
+      <form onSubmit={handleSubmit}>
+
+//input box for the item title        
+        <input
+          placeholder="Title"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
+
+        <br />
+
+//text box for the description of the item from the user
+        <textarea
+          placeholder="Description"
+          value={description}
+          onChange={e => setDescription(e.target.value)}
+        />
+
+        <br />
+
+//submit button which calls the handleSubmit function when clicked
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  );
 }
