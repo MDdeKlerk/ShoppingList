@@ -12,6 +12,8 @@ app.use(express.json());
 //initialise variables
 let items = [];
 
+const crypto = require("crypto")
+
 //GET /items (display shopping list)
 app.get('/items', (req, res) => {
     const shoppingList = items.map(({id, title, done}) => ({
@@ -43,7 +45,7 @@ app.post('/items', (req, res) => {
         return res.status(400).json({ Message : "Title and Description required "})
     }
 const newItem = {
-    id: Date.now().toString(),
+    id: crypto.randomUUID(),
     title,
     created: new Date().toISOString(),
     description,
