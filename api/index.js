@@ -21,20 +21,28 @@ app.get('/items', (req, res) => {
         done
     }));
 
-    res.json(shoppingList);
+    res.status(200).json(shoppingList);
 });
 
 //GET /items/:id (view an item including details)
 app.get('/items/:id', (req,res) => {
     const itemDetail = items.find(i => i.id === Number(req.params.id));
 
-    res.json(itemDetail);
+    if(!itemDetail){
+        return res.status(404).json({Message : "Item not found"})
+    }
+
+    res.status(200).json(itemDetail);
 });
 
 //POST /items (create a new item on the list)
 app.post('/items', (req, res) => {
     const {title, description} = req.body;
 
+    if(!title|| !description){
+
+        return res.status(400).json({ Message : "Title and Description required "})
+    }
 const newItem = {
     id: autoID++,
     title,
@@ -45,7 +53,7 @@ const newItem = {
 
 items.push(newItem);
 
-res.json(newItem);
+res.status(201).json(newItem);
 });
 
 //PUT /items/:id (mark item as done)
@@ -54,7 +62,7 @@ app.put('/items/:id', (req,res) => {
 
     itemStatus.done = req.body.done;
 
-    res.json(itemStatus);
+    res.status(200).json(itemStatus);
 
 });
 
@@ -62,8 +70,12 @@ app.put('/items/:id', (req,res) => {
 app.delete('/items/:id', (req,res) => {
     const index = items.findIndex( i => i.id === Number(req.params.id));
 
+    if(index === -1){
+        return res.status(404).json({message : "Item not found"});
+    }
+
     items.splice(index, 1);
-    res.json();
+    res.status(200).json();
 })
 
 //DELETE /items (delete all items from the shopping list)
@@ -71,7 +83,7 @@ app.delete('/items', (req,res) => {
     items = [];
     autoID = 0;
 
-    res.json();
+    res.status.apply(200).json();
 });
 
 app.listen(PORT, () => {
