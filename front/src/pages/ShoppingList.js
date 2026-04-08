@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 //port on which backend runs
-const API = 'http://localhost:5000';
+const API = process.env.REACT_APP_API_URL;
 
 //get items from backend
 export default function ShoppingList() {

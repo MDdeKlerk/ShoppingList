@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //port on which backend runs
-const API = 'http://localhost:5000';
+const API = process.env.REACT_APP_API_URL;
 
 
 //gathers data from the user input and stores
