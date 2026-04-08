@@ -82,9 +82,9 @@ app.delete('/items/:id', (req,res) => {
 //DELETE /items (delete all items from the shopping list)
 app.delete('/items', (req,res) => {
     items = [];
-    autoID = 0;
+    
 
-    res.status.apply(200).json();
+    res.status(200).json();
 });
 
 app.listen(PORT, () => {
