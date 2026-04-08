@@ -11,7 +11,6 @@ app.use(express.json());
 
 //initialise variables
 let items = [];
-let autoID = 0;
 
 //GET /items (display shopping list)
 app.get('/items', (req, res) => {
@@ -26,7 +25,7 @@ app.get('/items', (req, res) => {
 
 //GET /items/:id (view an item including details)
 app.get('/items/:id', (req,res) => {
-    const itemDetail = items.find(i => i.id === Number(req.params.id));
+    const itemDetail = items.find(i => i.id === (req.params.id));
 
     if(!itemDetail){
         return res.status(404).json({Message : "Item not found"})
@@ -44,7 +43,7 @@ app.post('/items', (req, res) => {
         return res.status(400).json({ Message : "Title and Description required "})
     }
 const newItem = {
-    id: autoID++,
+    id: Date.now().toString(),
     title,
     created: new Date().toISOString(),
     description,
@@ -58,7 +57,7 @@ res.status(201).json(newItem);
 
 //PUT /items/:id (mark item as done)
 app.put('/items/:id', (req,res) => {
-    const itemStatus = items.find( i => i.id === Number(req.params.id));
+    const itemStatus = items.find( i => i.id === (req.params.id));
 
     itemStatus.done = req.body.done;
 
@@ -68,7 +67,7 @@ app.put('/items/:id', (req,res) => {
 
 //DELETE /items/:id (delete an item from the shopping list)
 app.delete('/items/:id', (req,res) => {
-    const index = items.findIndex( i => i.id === Number(req.params.id));
+    const index = items.findIndex( i => i.id === (req.params.id));
 
     if(index === -1){
         return res.status(404).json({message : "Item not found"});
